@@ -1,0 +1,27 @@
+// con coordinador
+
+chan llegue
+chan largar
+
+process ninio[n:1..50]{
+  send llegue()
+  receive largar()
+}
+process coordinador{
+  for i:=1 to 50 { receive llegue() }
+  for i:=1 to 50 { send largar() }
+}
+
+
+// sin coordinador
+// algo de la indole de heartbeat
+process ninio[n:1..50]{
+  if (i == 50){
+    for i:=1 to 49 { receive llegue }
+    for i:=1 to 49 { send largar }
+  } else {
+    send llegue
+    receive largar
+  }
+  // los guachos corriendo
+}

@@ -1,0 +1,54 @@
+process tango[t:1..n]{
+  send bailar_tangok
+    receive habilitartango[t]
+    // bailando tango
+    send me_quiero_ir_tango(id)
+    receive me_voy_ir[id]
+}
+
+process sala{
+  int tangueros, salseros, rocekeros, flamenqueros := 0
+
+  if (!empty(bailar_flamenco)&!empty(bailar_rock)){
+    receive bailar_flamenco(flamenquero_id); flamenqueros++
+    receive bailar_rock(rocker_id); rockeros++
+    send bailar_rock[rocker_id]
+    send bailar_flamenco[flamenquero_id]
+  }
+
+  while (true){
+    if 
+
+    * (!empty(bailar_tango) && (tangueros + 1 < flamenqueros)){
+      receive bailar_tango(bailarin_id); tangueros++
+      send habilitar_tango[bailarin_id]
+    * (!empty(bailar_salsa) && (salseros + 1 < flamenqueros)){}  
+      receive bailar_salsa(bailarin_id); salseros++
+      send habilitar_salsa[bailarin_id]
+    }
+    * (!empty(bailar_rock)){
+      receive bailar_rock(bailarin_id); rockero++
+      send habilitar_rock[bailarin_id]
+    }
+    * (!empty(bailar_flamenco)){
+      receive bailar_flamenco(bailarin_id); flamenqueros++
+      send habilitar_flamenco[bailarin_id];
+    }
+    * (!empty(me_quiero_ir_tango)){
+      receive me_quiero_ir_tango(bailarin_id); tango--;
+      send me_voy_tango[bailarin_id];
+    }
+    * (!empty(me_quiero_ir_salsa)){
+      reveice me_quiero_ir_salsa(bailarin_id); salsa--;
+      send me_voy_salsa[bailarin_id];
+    }
+    * (!empty(me_quiero_ir_flamenco) && (flamenqueros-1 > 0)){
+      receive me_quiero_ir_salsa(bailar_id); flamenqueros--;
+      send me_voy_salsa[bailarin_id];
+    }
+    * (!empty(me_quiero_ir_rockero) && (rockero -1 > 0)){
+      receive me_quiero_ir_rockero(bailar_id); rockero--;
+      send me_voy_rockero[bailarin_id];
+    }
+  }
+}
