@@ -1,0 +1,46 @@
+chan puerta(int)
+chan liberar(int)
+
+process persona[id:1..P]{
+  send puerta(id)
+  receive personas[id](data)
+  if (data == 'tomatelas'){
+    // veo si me quejo y me las tomo
+  } else {
+    // me atienden y tengo que ver movidas de vueltos
+  }
+}
+
+
+process relog[id:1..P]{
+  int pid
+  string void_str //no es necesario lo que mandemos
+
+  receive relojes[id](void_str)
+  delay(15)
+  send personas[pid]('tomatelas')
+}
+
+process puerta{
+  int cant_caja[1..5]
+  int pid
+  int caja_min
+  while (true){
+    if (cant_caja[*] == 0){
+      receive puerta(pid)
+    }
+    if
+      (!empty(puerta)){
+        receive puerta(pid)
+        caja_min = min_caja()
+        send relojes[pid]('ya despiertate nena')
+        send cajas[caja_min](pid)
+        cant_caja[caja_min]++
+        }
+      (!empty(liberar)){
+        receive liberar(caja_id)
+        cant_caja[caja_id]--
+        }
+    fi
+  }
+}

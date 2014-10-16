@@ -1,0 +1,27 @@
+process radar[r:1..10]{
+  int info
+  while (true) {
+    delay(15) // armo data en info
+    buffer!(info)
+  }
+}
+process buffer{
+  int   radar_id
+  int   info
+  bool  pedido
+  queue data
+  do
+    (radar[*]?(info))  -> push(data,info)
+    (!empty(data) & up?(pedido)) -> up!(pop(data))
+  od
+}
+process up{
+  bool  libre
+  int   info
+  queue data
+  while (true) {
+    buffer!(libre)
+    buffer?(info)
+    push(data,info)
+  }
+}

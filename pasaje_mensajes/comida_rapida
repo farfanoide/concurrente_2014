@@ -1,0 +1,34 @@
+chan pedidos(string, int)
+chan entregas[1..C](plato)
+chan cocinero(string, int)
+
+process cliente[c:1..C]{
+  int pedido
+  send pedidos(pedido, c)
+  receive entregas[c](plato)
+  // se la morfa
+}
+
+process cocinero[co:1..2]{
+  string pedido
+  int cliente_id
+  while (true) {
+    receive cocinero(pedido, cliente_id)
+    plato := alta_cocinada()
+    send entregas[cliente_id](plato)
+  }
+}
+
+process vendedor[v:1..3]{
+  string pedido
+  int cliente_id
+  while (true) {
+    if (empty(pedidos)){ 
+      delay(random(1..3)) 
+    } else {
+      receive pedidos(pedido, cliente_id)
+      // me hago el que lo ingreso en la compu o algo asi
+      send cocinero(pedido, cliente_id)
+    }
+  }
+}

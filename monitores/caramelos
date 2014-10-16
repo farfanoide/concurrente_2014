@@ -1,0 +1,37 @@
+process abuela{
+  while true{
+    MonitorCaramelera.rellenarCaramelera(x)
+  }
+}
+
+process nieto[nid:1..n]{
+  while true {
+    MonitorCaramelera.coemr()
+  }
+}
+
+MonitorCaramelera{
+  int caramelos = 0
+  bool llenando = false
+  bool abuela, nieto, otros
+
+  procedure comer(){
+    if (caramelos = 0){
+      if (llenando = false){
+        llenando = true
+        signal(abuela)
+        wait(nieto)
+        signal_all(otros)
+      }
+    } else {
+      wait(otros)
+    }
+    caramelos --
+  }
+
+  procedure rellenarCaramelera(x){
+    signal(nieto)
+      caramelos := x
+      wait(abuela)
+  }
+}

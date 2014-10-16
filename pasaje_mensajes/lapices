@@ -1,0 +1,105 @@
+// semaforos para dormir lapices
+sem  lapices[l:1..z];
+
+// semaforos para dormir nietos
+sem  nietos[l:1..z];
+
+// canales por los cuales los lapices le avisan a la abuela que quedaron libres
+chan negro_libre int;
+chan color_libre int;
+
+
+// canales para que los nietos pidan lapices
+chan   pedir_negro        int;
+chan   pedir_color        int;
+chan   pedir_cualquiera   int;
+
+// canal para devolverle a los nietos el lapiz a usar
+chan   usar_lapiz[1..h]   int;
+
+process lapiz_negro[ln:1..n]{
+  while (true) {
+    send negro_libre(ln)
+      p(lapices[ln])
+  }
+}
+
+process lapiz_color[lc:n+1..z]{
+  while (true) {
+    send color_libre(ln)
+      p(lapices[lc])
+  }
+}
+
+process nieto_negro[nn:1..f]{
+  int id_lapiz
+
+    while (true) {
+      send pedir_negro(nn)
+      p(nietos[nn])
+      receive usar_lapiz[nn](id_lapiz)
+      // usa lapiz
+      delay(10)
+      // libera lapiz
+      v(lapices[id_lapiz])
+    }
+}
+
+process nieto_color[nc:f+1..g]{
+  int id_lapiz
+
+    while (true) {
+      send pedir_color(nc)
+        p(nietos[nc])
+        receive usar_lapiz[nc](id_lapiz)
+        // usa lapiz
+        delay(10)
+        // libera lapiz
+        v(lapices[id_lapiz])
+    }
+}
+process nieto_cualquiera[nu:g+1..h]{
+  int id_lapiz
+
+    while (true) {
+      send pedir_cualquiera(nu)
+      p(nietos[nu])
+      receive usar_lapiz[nu](id_lapiz)
+      // usa lapiz
+      delay(10)
+      // libera lapiz
+      v(lapices[id_lapiz])
+    }
+}
+
+process abuelita{
+  int id_lapiz
+  int id_nieto
+    while (true) {
+      if
+        (!empty(negro_libre) && !empty(pedir_negro)){
+          receive negro_libre(id_lapiz)
+          receive pedir_negro(id_nieto)
+          send usar_lapiz[id_nieto](id_lapiz)
+          v(nietos[id_nieto])
+        }
+        (!empty(color_libre) && !empty(pedir_color)){
+          receive color_libre(id_lapiz)
+          receive pedir_color(id_nieto)
+          send usar_lapiz[id_nieto](id_lapiz)
+          v(nietos[id_nieto])
+        }
+        (!empty(negro_libre) && !empty(pedir_cualquiera)){
+          receive negro_libre(id_lapiz)
+          receive pedir_negro(id_nieto)
+          send usar_lapiz[id_nieto](id_lapiz)
+          v(nietos[id_nieto])
+        }
+        (!empty(color_libre) && !empty(pedir_cualquiera)){
+          receive color_libre(id_lapiz)
+          receive pedir_color(id_nieto)
+          send usar_lapiz[id_nieto](id_lapiz)
+          v(nietos[id_nieto])
+        }
+    }
+}
