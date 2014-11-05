@@ -19,17 +19,23 @@ Semáforos
 
 > Siempre debe maximizarse la concurrencia (sin contradecir el enunciado)
 
-1. Existen N personas que deben ser chequeadas por un detector de metales antes
+Ejercicio 1
+-----------
+
+Existen N personas que deben ser chequeadas por un detector de metales antes
 de poder ingresar al avión. Implemente una solución que modele solo el acceso
 de la persona al detector (es decir si el detector esta libre la persona lo
 puede utilizar caso contrario debe esperar).
 
-    1. Modifique su solución para que funcione en el caso que el detector pueda
-    controlar a tres personas a la vez.
+  1. Modifique su solución para que funcione en el caso que el detector pueda
+  controlar a tres personas a la vez.
 
-    > Solucion: [Detector Metales](src/semaforos/detector_metales)
+> Solucion: [Detector Metales](src/semaforos/detector_metales)
 
-2. Suponga que existe una BD que puede ser accedida por 6 usuarios como máximo
+Ejercicio 2
+-----------
+
+Suponga que existe una BD que puede ser accedida por 6 usuarios como máximo
 al mismo tiempo. Además los usuarios se clasifican como usuarios de prioridad
 alta y usuarios de prioridad baja. Por último la BD tiene la siguiente
 restricción:
@@ -57,10 +63,12 @@ restricción:
 
       La solución presentada es la mejor?. Justifique.
 
-      > Solucion: Convendria modificar el orden de las llamadas `P(s)` y
-      > `P(alta)`.
+> Solucion: Convendria modificar el orden de las llamadas `P(s)` y `P(alta)`.
 
-3. Implemente en semáforos el problema de productor-consumidor descripto a
+Ejercicio 3
+-----------
+
+Implemente en semáforos el problema de productor-consumidor descripto a
 continuación. Existe un proceso productor que realiza productos
 indefinidamente. Cada vez que termina de producir un producto lo guarda en un
 buffer que tiene una capacidad de un elemento. Además existen C consumidores
@@ -68,18 +76,30 @@ que intentan consumir los productos producidos por el productor. Cada vez que
 un producto es consumido por los C consumidores el productor puede depositar un
 nuevo producto.
 
-4. Suponga que se tiene un curso con 50 alumnos. Cada alumno elije una de las
+> Solucion: [Productor-Consumidores](src/semaforos/productor-consumidor)
+
+Ejercicio 4
+-----------
+
+Suponga que se tiene un curso con 50 alumnos. Cada alumno elije una de las
 10 tareas para realizar entre todos. Una vez que todos los alumnos eligieron su
 tarea comienzan a realizarla. Cada vez que un alumno termina su tarea le avisa
 al profesor y si todos los alumnos que tenían la misma tarea terminaron el
 profesor les otorga un puntaje que representa el orden en que se terminó esa
-tarea.  Nota: Para elegir la tarea suponga que existe una función elegir que le
-asigna una tarea a un alumno (esta función asignará 10 tareas diferentes entre
-50 alumnos, es decir, que 5 alumnos tendrán la tarea 1, otros 5 la tarea 2 y
-así sucesivamente para las 10 tareas). El tiempo en un alumno tarda en realizar
-la tarea es random.
+tarea.
 
-5. Existen N alumnos que desean consultar a alguno de los A ayudantes en una
+`Nota: Para elegir la tarea suponga que existe una función elegir_tarea() que
+le asigna una tarea a un alumno (esta función asignará 10 tareas diferentes
+entre 50 alumnos, es decir, que 5 alumnos tendrán la tarea 1, otros 5 la tarea
+2 y así sucesivamente para las 10 tareas). El tiempo en un alumno tarda en
+realizar la tarea es random.`
+
+> Diagrama ![diagrama alumnos profesor](img/semaforos/alumnos_profesor.)
+
+Ejercicio 5
+-----------
+
+Existen N alumnos que desean consultar a alguno de los A ayudantes en una
 práctica. Para esto cada alumno se agrega en una cola para consultas. Si una
 vez que el alumno se agregó en la cola pasaron más de 15 minutos el mismo se
 retira; por el contrario si fue atendido por un ayudante, entonces el alumno le
@@ -88,12 +108,15 @@ estaba correcto el alumno se retira, en caso que tenga que modificarlo, realiza
 las modificaciones y vuelve a agregarse a la cola (Ya no debe tenerse en cuenta
 lo de los 15 minutos).
 
-> Nota: Suponga que existe una función que devuelve si un alumno hizo bien o mal
-> el ejercicio. El alumno no decide a cual ayudante le consulta. Los 15 minutos
-> solo deben tenerse en cuenta la primera vez, es decir, si el alumno fue
-> atendido ya no se toma más en cuenta el tiempo.
+`Nota: Suponga que existe una función que devuelve si un alumno hizo bien o mal
+el ejercicio. El alumno no decide a cual ayudante le consulta. Los 15 minutos
+solo deben tenerse en cuenta la primera vez, es decir, si el alumno fue
+atendido ya no se toma más en cuenta el tiempo.`
 
-6. Suponga que hay N tareas que se realizan en forma diaria por los operarios
+Ejercicio 6
+-----------
+
+Suponga que hay N tareas que se realizan en forma diaria por los operarios
 de una fábrica. Suponga que existen M operarios (M = Nx5). Cada tarea se
 realiza de a grupos de 5 operarios, ni bien llegan a la fábrica se juntan de a
 5 en el orden en que llegaron y cuando se ha formado el grupo se le da la tarea
@@ -106,7 +129,10 @@ que no debe interferir con la entrada.  Nota: cada operario puede hacer 0, 1 o
 más elementos de una tarea. El tiempo que cada operario tarda en hacer cada
 elemento es diferente y random. Maximice la concurrencia.
 
-7. Resolver el siguiente problema. Existen N camiones que deben descargar
+Ejercicio 7
+-----------
+
+Resolver el siguiente problema. Existen N camiones que deben descargar
 cereales en una acopiadora. Los camiones se descargan de a uno por vez, y de
 acuerdo al orden de llegada. Una vez que el camión llegó, espera a lo sumo 2
 hs. a que le llegue su turno para comenzar a descargar su cereal, sino se
@@ -114,7 +140,10 @@ retira sin realizar la descarga.  Cuando un camión termina de realizar la
 descarga de su contenido, se debe encargar de avisarle al siguiente camión (en
 caso de que haya alguno esperando) que le llegó su turno para descargar.
 
-8. En un curso hay dos profesores que toman examen en forma oral, el profesor A
+Ejercicio 8
+-----------
+
+En un curso hay dos profesores que toman examen en forma oral, el profesor A
 llama a los alumnos de acuerdo al orden de llegada, mientras que el profesor B
 llama a cualquier alumno (que haya llegado).  Existen N alumnos que llegan y se
 quedan esperando hasta ser llamados para rendir, luego de que uno de los dos

@@ -1,0 +1,35 @@
+int numero_tarea
+int eligieron_tarea = 0
+sem s_profesor_ocupado = 0
+sem s_profesor_libre = 1
+sem s_hacer_tarea[1..50] = 0
+sem s_elegir_tarea = 1
+
+
+process profesor{
+  while (true) {
+    P(s_profesor_ocupado)
+    grupos[tarea]++
+    if (grupos[tarea] == 5) {
+      // devuelve la nota
+      // despierta al grupo
+      nota--
+    }
+    V(s_profesor_libre)
+  }
+}
+
+process alumno[a:=1..50]{
+  int mi_tarea
+  mi_tarea := elegir_tarea() // valor entre 1 y 10
+  P(s_elegir_tarea)
+  <
+  eligieron_tarea++
+  if (eligieron_tarea == 50) {
+    for (i:=1 to 50) { V(s_hacer_tarea[i]) }
+  } else {
+    V(s_elegir_tarea)
+    P(s_hacer_tarea[i])
+  }
+  >
+}
