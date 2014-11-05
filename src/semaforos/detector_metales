@@ -1,0 +1,19 @@
+sem s_detector = 1;
+
+process persona[id:1..n]{
+  p(s_detector);
+  // pasan por el detector
+  v(s_detector);
+}
+
+------------------------------------------
+
+// permitiendo a tres personas al mismo tiempo
+
+sem s_detector = 3;
+
+process persona[id:1..n]{
+  p(s_detector);
+  // pasan por el detector
+  v(s_detector);
+}

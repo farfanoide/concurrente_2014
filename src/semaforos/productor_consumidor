@@ -1,0 +1,29 @@
+sem s_consumieron = 1
+sem buffer_vacio = 1
+sem buffer_lleno[1..C] = 0
+int producto
+int consumieron = 0
+
+process productor{
+  while (true) {
+    P(buffer_vacio)
+    producto := producir()
+    for i := 1 to C { V(buffer_lleno[i]) }
+  }
+}
+
+process consumidor[i:=0..C]{
+  while (true) {
+    P(buffer_lleno[i])
+    <leo buffer>
+    P(s_consumieron)
+    <
+      consumieron++
+      if (consumieron == C) {
+        V(buffer_vacio)
+        consumieron := 0
+      }
+    >
+    V(s_consumieron)
+  }
+}
