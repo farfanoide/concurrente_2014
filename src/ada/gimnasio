@@ -1,0 +1,110 @@
+  Task TYPE Persona BODY IS
+
+    int mi_locker
+    int dni
+    int id_profesor
+    int id_maquina
+    int intentos = 0
+    bool habilitado
+    bool termine_rutina
+
+    Secretaria.registrar(dni, mi_locker, habilitado)
+
+    if (habilitado) then
+      Locker[mi_locker].guardar("ROPA")
+      AdminProfesores.dameProfesor(id_profesor)
+      Profesor[id_profesor].asignarTipoMaquina("RUTINA", id_maquina, termine_rutina)
+
+      while (not termine_rutina AND intentos > 5) LOOP
+        AdminMaquinas.dameMaquina(id_maquina)
+        SELECT
+          Maquina[id_maquina].usar()
+        ELSE
+          intentos++
+        endSELECT
+      End LOOP
+
+      AdminProfesores.liberarProfesor(id_profesor)
+      Locker[mi_locker].retirar("ROPA")
+    end if
+end Persona
+
+------------------------------------------------------
+
+Task TYPE Locker BODY IS
+
+  SELECT
+    ACCEPT guardar(string: IN ropa) do
+      -- guardar
+    end guardar
+  OR
+    ACCEPT retirar(string: OUT ropa) do
+      -- retirar
+    end retirar
+  end SELECT
+
+end Locker
+
+------------------------------------------------------
+
+Task Secretaria BODY IS
+
+  SELECT
+  ACCEPT registrar(int: IN dni, int: OUT locker, bool: OUT habilitado) do
+    -- verifico y devuelvo numero de locker o si esta inhabilitado
+  end registrar
+end SELECT
+
+end Secretaria
+
+------------------------------------------------------
+
+Task TYPE Profesor BODY IS
+
+  SELECT
+  ACCEPT asignarTipoMaquina(string: IN rutina, int: OUT tipo_maquina, bool: OUT termino) do
+    tipo_maquina = rutina()
+  end asignarTipoMaquina
+end SELECT
+
+end Profesor
+
+------------------------------------------------------
+
+Task AdminProfesores BODY IS
+
+  array[1..J] profesores = 0
+
+  SELECT
+  ACCEPT dameProfesor(int: OUT id) do
+    id = minimo(profesores)
+    profesores[id]++
+  end dameProfesor
+  OR
+  ACCEPT liberarProfesor(int: IN id) do
+    profesores[id]--
+  end liberarProfesor
+end SELECT
+
+end AdminProfesores
+
+------------------------------------------------------
+
+Task TYPE Maquina BODY IS
+  SELECT
+    ACCEPT usar() do
+      delay(5min)
+      AdminMaquinas.termine(mi_id)
+    end usar
+  end SELECT
+end Maquina
+
+------------------------------------------------------
+
+Task AdminMaquinas BODY IS ------- ARREGLO ? 1 ADMIN POR TIPO ?
+
+  -- HACER
+
+end AdminMaquinas
+
+------------------------------------------------------

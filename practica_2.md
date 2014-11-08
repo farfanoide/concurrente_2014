@@ -5,8 +5,9 @@ Práctica Nº2 – Plan 2003 y 2007
 Semáforos
 ---------
 
-> Nota: En todos los ejercicios el tiempo debe representarse con la función
-> delay
+```
+Nota: En todos los ejercicios el tiempo debe representarse con la función delay
+```
 
 ### CONSIDERACIONES PARA RESOLVER LOS EJERCICIOS:
 
@@ -88,11 +89,13 @@ al profesor y si todos los alumnos que tenían la misma tarea terminaron el
 profesor les otorga un puntaje que representa el orden en que se terminó esa
 tarea.
 
-`Nota: Para elegir la tarea suponga que existe una función elegir_tarea() que
+```
+Nota: Para elegir la tarea suponga que existe una función elegir_tarea() que
 le asigna una tarea a un alumno (esta función asignará 10 tareas diferentes
 entre 50 alumnos, es decir, que 5 alumnos tendrán la tarea 1, otros 5 la tarea
 2 y así sucesivamente para las 10 tareas). El tiempo en un alumno tarda en
-realizar la tarea es random.`
+realizar la tarea es random.
+```
 
 > Diagrama ![diagrama alumnos profesor](img/semaforos/alumnos_profesor.)
 
@@ -108,10 +111,12 @@ estaba correcto el alumno se retira, en caso que tenga que modificarlo, realiza
 las modificaciones y vuelve a agregarse a la cola (Ya no debe tenerse en cuenta
 lo de los 15 minutos).
 
-`Nota: Suponga que existe una función que devuelve si un alumno hizo bien o mal
+```
+Nota: Suponga que existe una función que devuelve si un alumno hizo bien o mal
 el ejercicio. El alumno no decide a cual ayudante le consulta. Los 15 minutos
 solo deben tenerse en cuenta la primera vez, es decir, si el alumno fue
-atendido ya no se toma más en cuenta el tiempo.`
+atendido ya no se toma más en cuenta el tiempo.
+```
 
 Ejercicio 6
 -----------
@@ -151,64 +156,65 @@ profesores lo atiende, se va. Indicar si la siguiente solución realizada con
 semáforo resuelve lo pedido. Justificar la respuesta.
 
 
+```
+string estado[N] = ([N], “Esperando” )
+queue colaA, colaB
+sem llegoA, llegoB = 0
+sem esperando[N] = ([N], 0)
+sem mutex[N] = ([N], 1)
+sem mutexA, mutexB = 1
 
-        string estado[N] = ([N], “Esperando” )
-        queue colaA, colaB
-        sem llegoA, llegoB = 0
-        sem esperando[N] = ([N], 0)
-        sem mutex[N] = ([N], 1)
-        sem mutexA, mutexB = 1
+Profesor A::{
+  int idAlumno
+  while (true) {
+    P(llegoA)
+    P(mutexA)
+      idAlumno = pop(colaA)
+    V(mutexA)
+    P(mutex[idAlumno])
+      If (estado[idAlumno] = =“Esperando”)
+        estado[idAlumno] = “A”
+    V(mutex[idAlumno])
+    V(esperando[idAlumno])
+    //Se toma el examen//
+      V(esperando[idAlumno])
+    else
+      V(mutex[idAlumno])
+  }
+}
 
-        Profesor A::{
-          int idAlumno
-          while (true) {
-            P(llegoA)
-            P(mutexA)
-              idAlumno = pop(colaA)
-            V(mutexA)
-            P(mutex[idAlumno])
-              If (estado[idAlumno] = =“Esperando”)
-                estado[idAlumno] = “A”
-            V(mutex[idAlumno])
-            V(esperando[idAlumno])
-            //Se toma el examen//
-              V(esperando[idAlumno])
-            else
-              V(mutex[idAlumno])
-          }
-        }
+Profesor B:: {
+  int idAlumno
+  while (true) {
+    P(llegoB)
+    P(mutexB)
+      idAlumno = popAleatorio(colaB)
+    V(mutex(B))
+    P(mutex[idAlumno])
+      If (estado[idAlumno] == “Esperando”)
+      estado[idAlumno] = “B”
+    V(mutex[idAlumno])
+    V(esperando[idAlumno])
+      //Se toma el examen//
+      V(esperando[idAlumno])
+    else
+      V(mutex[idAlumno])
+  }
+}
 
+Alumno[i:1..N] {
+  P(mutexA)
+    push(colaA, i)
+  V(mutexA)
+  P(mutexB)
+    push(colaB, i)
+  V(mutexB)
+  P(esperando[i])
+  if (estado[i] == “A”)
+    //Interactúa con el Prof A//
+  else
+    //Interactua con el Prof B//
+  P(esperando[i])
+}
+```
 
-        Profesor B:: {
-          int idAlumno
-          while (true) {
-            P(llegoB)
-            P(mutexB)
-              idAlumno = popAleatorio(colaB)
-            V(mutex(B))
-            P(mutex[idAlumno])
-              If (estado[idAlumno] == “Esperando”)
-              estado[idAlumno] = “B”
-            V(mutex[idAlumno])
-            V(esperando[idAlumno])
-              //Se toma el examen//
-              V(esperando[idAlumno])
-            else
-              V(mutex[idAlumno])
-          }
-        }
-
-        Alumno[i: 1..N] {
-          P(mutexA)
-            push(colaA, i)
-          V(mutexA)
-          P(mutexB)
-            push(colaB, i)
-          V(mutexB)
-          P(esperando[i])
-          if (estado[i] == “A”)
-            //Interactúa con el Prof A//
-          else
-            //Interactua con el Prof B//
-          P(esperando[i])
-        }
