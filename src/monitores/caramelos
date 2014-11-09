@@ -5,32 +5,33 @@ process abuela{
 }
 
 process nieto[nid:1..n]{
+  un_caramelo
   while true {
-    MonitorCaramelera.coemr()
+    MonitorCaramelera.comer(un_caramelo)
+    // me como un_caramelo
   }
 }
 
 MonitorCaramelera{
   int caramelos = 0
   bool llenando = false
-  bool abuela, nieto, otros
+  cond abuela, nieto, otros
 
-  procedure comer(){
+  procedure comer(var car){
     if (caramelos = 0){
-      if (llenando = false){
+      if (llenando = false){ //soy el primero en encontrar la caramelera vacia
         llenando = true
         signal(abuela)
         wait(nieto)
-        signal_all(otros)
-      }
-    } else {
-      wait(otros)
+      } else { wait(otros) }
     }
+    car := un_caramelo()
     caramelos --
+    signal_all(otros)
   }
 
   procedure rellenarCaramelera(x){
-    signal(nieto)
+      signal(nieto)
       caramelos := x
       wait(abuela)
   }
