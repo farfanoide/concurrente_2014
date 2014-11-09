@@ -15,10 +15,11 @@
       AdminProfesores.dameProfesor(id_profesor)
       Profesor[id_profesor].asignarTipoMaquina("RUTINA", id_maquina, termine_rutina)
 
-      while (not termine_rutina AND intentos > 5) LOOP
+      while (not termine_rutina AND intentos < 5) LOOP
         AdminMaquinas.dameMaquina(id_maquina)
         SELECT
           Maquina[id_maquina].usar()
+          -- termine_rutina := true
         ELSE
           intentos++
         endSELECT

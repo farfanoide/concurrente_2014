@@ -1,7 +1,8 @@
 Programación Concurrente – 2014 - Práctica 5
 ============================================
 
-ADA
+
+Ejercicio 1 ADA
 ---
 
 ### CONSIDERACIONES PARA RESOLVER LOS EJERCICIOS:
@@ -102,10 +103,10 @@ ADA
 
 5. Select para ACCEPT.
 
-    1. En los select para los accept puede haber m ás de una alternatica de
-    accept, pero no se puede haber alternativas de entry call (no se puede
-    mezclar accept con entries). Cada alternativas de ACCEPT puede ser o no
-    condicional (WHEN).
+    1. En los select para los accept puede haber más de una alternativa de
+    accept, pero no puede haber alternativas de entry call (no se puede mezclar
+    accept con entries). Cada alternativas de ACCEPT puede ser o no condicional
+    (WHEN).
 
         ```ada
         SELECT
@@ -158,7 +159,6 @@ ADA
     END SELECT;
     ```
 
-Ejercicio 1
 -----------
 
 Se debe controlar el acceso a una base de datos. Existen A procesos de Tipo 1,
@@ -272,9 +272,11 @@ devuelve:
 Ejercicio 5
 -----------
 
-Se debe modelar el siguiente problema En una clínica existe un médico de
-guardia que recibe continuamente peticiones de atención de las E enfermeras que
-trabajan en su piso y de las P personas que llegan a la clínica ser atendidos.
+Se debe modelar el siguiente problema:
+
+En una clínica existe un médico de guardia que recibe continuamente peticiones
+de atención de las E enfermeras que trabajan en su piso y de las P personas que
+llegan a la clínica para ser atendidos.
 
 Cuando una persona necesita que la atiendan espera a lo sumo 5 minutos a que el
 médico lo haga, si pasado ese tiempo no lo hace, espera 10 minutos y vuelve a
@@ -288,7 +290,7 @@ le firme algún papel). Cuando la petición ha sido recibida por el médico o la
 nota ha sido dejada en el escritorio, continúa trabajando y haciendo más
 peticiones.
 
-El médico atiende los pedidos teniendo dándoles prioridad a los enfermos que
+El médico atiende los pedidos dándoles prioridad a los enfermos que
 llegan para ser atendidos. Cuando atiende un pedido, recibe la solicitud y la
 procesa durante un cierto tiempo. Cuando está libre aprovecha a procesar las
 notas dejadas por las enfermeras.
