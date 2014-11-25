@@ -77,25 +77,29 @@ process abuelita{
   int id_nieto
     while (true) {
       if
-        (!empty(negro_libre) && !empty(pedir_negro)){
+        (!empty(negro_libre) && !empty(pedir_negro))
+        {
           receive negro_libre(id_lapiz)
           receive pedir_negro(id_nieto)
           send usar_lapiz[id_nieto](id_lapiz)
           v(nietos[id_nieto])
         }
-        (!empty(color_libre) && !empty(pedir_color)){
+        (!empty(color_libre) && !empty(pedir_color))
+        {
           receive color_libre(id_lapiz)
           receive pedir_color(id_nieto)
           send usar_lapiz[id_nieto](id_lapiz)
           v(nietos[id_nieto])
         }
-        (!empty(negro_libre) && !empty(pedir_cualquiera)){
+        (!empty(negro_libre) && !empty(pedir_cualquiera))
+        {
           receive negro_libre(id_lapiz)
           receive pedir_negro(id_nieto)
           send usar_lapiz[id_nieto](id_lapiz)
           v(nietos[id_nieto])
         }
-        (!empty(color_libre) && !empty(pedir_cualquiera)){
+        (!empty(color_libre) && !empty(pedir_cualquiera))
+        {
           receive color_libre(id_lapiz)
           receive pedir_color(id_nieto)
           send usar_lapiz[id_nieto](id_lapiz)

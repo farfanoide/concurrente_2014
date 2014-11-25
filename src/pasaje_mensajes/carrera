@@ -14,7 +14,7 @@ process coordinador{
 
 
 // sin coordinador
-// algo de la indole de heartbeat
+// algo de la indole de heartbeat <- nunca lo hicimos
 process ninio[n:1..50]{
   if (i == 50){
     for i:=1 to 49 { receive llegue }

@@ -1,14 +1,12 @@
 process abuela{
-  while true{
-    MonitorCaramelera.rellenarCaramelera(x)
-  }
+  while (true) { MonitorCaramelera.rellenarCaramelera(x) }
 }
 
 process nieto[nid:1..n]{
-  un_caramelo
+  caramelo un_caramelo
   while true {
     MonitorCaramelera.comer(un_caramelo)
-    // me como un_caramelo
+    comer(un_caramelo)
   }
 }
 
@@ -18,7 +16,8 @@ MonitorCaramelera{
   cond abuela, nieto, otros
 
   procedure comer(var car){
-    if (caramelos = 0){
+    if (caramelos = 0)
+    {
       if (llenando = false){ //soy el primero en encontrar la caramelera vacia
         llenando = true
         signal(abuela)
@@ -26,7 +25,7 @@ MonitorCaramelera{
       } else { wait(otros) }
     }
     car := un_caramelo()
-    caramelos --
+    caramelos--
     signal_all(otros)
   }
 
