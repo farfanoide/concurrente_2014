@@ -1,22 +1,23 @@
 TASK TYPE Usuario IS
   ENTRY recibirRespuesta
+END TASK
+
 TASK Administrador IS
-  ENTRY entregarProcesador
+  ENTRY entregarProcesador()
+END TASK
 
 TASK TYPE Procesador IS
   ENTRY tomaTrabajo
+END TASK
 
 TASK BODY Usuario IS
 
   Administrador.entregarProcesador(nro_procesador)
-  while(termino!=true){
+  while (not termino) LOOP
     Procesadores[nro_procesador].tomaTrabajo(programa, error, nro_usuario)
-      if(error){
-        arregloPrograma(programa)
-      } else {
-        termino = true
-      }
-  }
+      if(error){ arregloPrograma(programa) }
+      else { termino = true }
+  END LOOP
 end
 
 TASK BODY Administrador IS
@@ -31,8 +32,8 @@ END
 TASK BODY Procesador IS
 While true LOOP
   ACCEPT tomaTrabajo(programa, error, nro_usuario) DO
-    while(estado==normal) { ejecutarLinea(estado) }
-  if estado=error{ error = true }
+    while(estado='normal') { ejecutarLinea(estado) }
+    if estado=error{ error = true }
   END tomaTrabajo
 END LOOP
 

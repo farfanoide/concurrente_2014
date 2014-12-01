@@ -1,0 +1,59 @@
+/*
+ * Resolver con PMA el siguiente problema. En un gimnasio hay 3 maquinas iguales
+ * que pueden ser utilizadas para hacer ejercicio o rehabilitacion. Hay E personas
+ * que quieren usar cualquiera de esas maquinas para hacer ejercicio, y R personas
+ * que las quieren usar para hacer rehabilitacion. Siempre tienen prioridad
+ * aquellos que las quieren usar para realizar rehabilitacion. Cuando una persona
+ * toma una maquina la usa por diez minutos y se retira.
+ */
+
+chan liberar_maquina[1..3]()
+chan maquinas_libres(integer)
+chan maquina_ejercicio(integer)
+chan maquina_rehabilitacion(integer)
+chan personas_ejercicio[1..E](integer)
+chan personas_rehabilitacion[1..R](integer)
+
+Process AdminMaquinas{
+  int persona_id, maquina_id
+  while (true) {
+    if
+     [] not empty(maquinas_rehabilitacion) and not empty(maquinas_libres))
+      {
+        receive maquinas_libres(maquina_id)
+        receive maquinas_rehabilitacion(persona_id)
+        send personas_rehabilitacion[persona_id](maquina_id)
+      }
+    [] (empty(maquinas_rehabilitacion) and not empty(maquinas_ejercicio) and not empty(maquinas_libres))
+      {
+        receive maquinas_libres(maquina_id)
+        receive maquinas_ejercicio(persona_id)
+        send personas_ejercicio[persona_id](maquina_id)
+      }
+  }
+}
+
+Process Maquina[id:1..3]{
+  while (true) {
+    send maquinas_libres(id)
+    receive maquinas[id](persona_id)
+  }
+}
+
+Process PersonaRehabilitacion[id:1..R]{
+  int maquina_id
+
+  receive personas_rehabilitacion[id](maquina_id)
+  send maquina_rehabilitacion(id)
+  delay(10)
+  send liberar_maquina[maquina_id]('youre free')
+}
+
+Process PersonaEjercicio[id:1..E]{
+  int maquina_id
+
+  send maquina_ejercicio(id)
+  receive personas_ejercicio[id](maquina_id)
+  delay(10)
+  send liberar_maquina[maquina_id]('youre free')
+}

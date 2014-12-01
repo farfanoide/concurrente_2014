@@ -41,10 +41,10 @@ al mismo tiempo. Además los usuarios se clasifican como usuarios de prioridad
 alta y usuarios de prioridad baja. Por último la BD tiene la siguiente
 restricción:
 
-    1. no puede haber más de 4 usuarios con prioridad alta al mismo tiempo
+    1. No puede haber más de 4 usuarios con prioridad alta al mismo tiempo
     usando la BD
 
-    2. no puede haber más de 5 usuarios con prioridad baja al mismo
+    2. No puede haber más de 5 usuarios con prioridad baja al mismo
     tiempo usando la BD
 
     ```

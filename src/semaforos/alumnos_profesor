@@ -1,9 +1,9 @@
 int numero_tarea
-int eligieron_tarea = 0
-sem s_profesor_ocupado = 0
-sem s_profesor_libre = 1
+int eligieron_tarea      = 0
+sem s_profesor_ocupado   = 0
+sem s_profesor_libre     = 1
 sem s_hacer_tarea[1..50] = 0
-sem s_elegir_tarea = 1
+sem s_elegir_tarea       = 1
 
 
 process profesor{
