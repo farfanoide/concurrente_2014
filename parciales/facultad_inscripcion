@@ -1,0 +1,38 @@
+process alumno[id:1..N]{
+  int carnet
+  str mi_documentacion
+
+  documentacion := tengo_documentacion()
+  if (documentacion) { buffer!con_documentacion(id, mi_documentacion) }
+  else { buffer!sin_documentacion(id, mi_documentacion) }
+  alumnos[id]?()
+  facultad!entregar_carnet(id)
+  alumnos[id]?(carnet)
+  // iujuuuu, estoy inscripto en la facu
+}
+
+process facultad{
+  while(true){
+      alumnos[*]?entregar_carnet(id)
+      carnet := buscar_carnet_alumno(id)
+      alumno[id]!(carnet)
+}
+process buffer{
+  while (true) {
+    do
+      []true && alumnos[*]?con_documentacion(id, datos)-> push(con_doc, datos, id)
+      []true && alumnos[*]?sin_documentacion(id, datos)-> push(sin_doc, datos, id)
+      []not empty(con_doc)-> secretaria!datos_alumno(pop(con_doc,datos, id))
+      []empty(con_doc) && not empty(sin_dock) && -> secretaria!datos_alumno(pop(sin_doc,datos, id))
+    end do
+  }
+}
+process secretaria{
+  str datos
+
+  while (true) {
+    buffer?datos_alumno(aluno_id, datos)
+    inscribir_alumno(alumno_id, datos)
+    alumnos[alumno_id]!(retira tu carne vieja)
+  }
+}

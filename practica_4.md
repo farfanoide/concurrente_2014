@@ -102,10 +102,10 @@ Cada Guarda de un if/do se compone de las siguientes partes:
 cond.booleana;
 - sent. de comunicación de recep donde:
 
-* Si no se especifica la cond. b ooleana se considera verdadera (la condición
+* Si no se especifica la cond. booleana se considera verdadera (la condición
   booleana sólo puede hacer referencia a variables locales al proceso).
 
-* En la sentencia de comunic ación de recepción se puede usar el comodín * si
+* En la sentencia de comunicación de recepción se puede usar el comodín * si
   el origen es un proceso dentro de un arreglo de procesos. Ejemplo:
   Clientes[*]?port(datos).
 

@@ -1,4 +1,4 @@
-TASK TYPE Usuario IS
+TASK TYPE Usurio IS
   ENTRY recibirRespuesta
 END TASK
 

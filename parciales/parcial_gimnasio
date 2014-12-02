@@ -18,13 +18,15 @@ Process AdminMaquinas{
   int persona_id, maquina_id
   while (true) {
     if
-     [] not empty(maquinas_rehabilitacion) and not empty(maquinas_libres))
+      [] (not empty(maquinas_rehabilitacion) and not empty(maquinas_libres))
       {
         receive maquinas_libres(maquina_id)
         receive maquinas_rehabilitacion(persona_id)
         send personas_rehabilitacion[persona_id](maquina_id)
       }
-    [] (empty(maquinas_rehabilitacion) and not empty(maquinas_ejercicio) and not empty(maquinas_libres))
+      [] (empty(maquinas_rehabilitacion) and
+          not empty(maquinas_ejercicio) and
+          not empty(maquinas_libres))
       {
         receive maquinas_libres(maquina_id)
         receive maquinas_ejercicio(persona_id)
@@ -43,8 +45,8 @@ Process Maquina[id:1..3]{
 Process PersonaRehabilitacion[id:1..R]{
   int maquina_id
 
-  receive personas_rehabilitacion[id](maquina_id)
   send maquina_rehabilitacion(id)
+  receive personas_rehabilitacion[id](maquina_id)
   delay(10)
   send liberar_maquina[maquina_id]('youre free')
 }

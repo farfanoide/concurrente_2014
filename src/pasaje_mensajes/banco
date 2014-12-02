@@ -26,9 +26,7 @@ process puerta{
   int pid
   int caja_min
   while (true){
-    if (cant_caja[*] == 0){
-      receive puerta(pid)
-    }
+    if (cant_caja[*] == 0){ receive puerta(pid) }
     if
       (!empty(puerta)){
         receive puerta(pid)

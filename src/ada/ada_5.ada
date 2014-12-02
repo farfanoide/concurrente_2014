@@ -33,7 +33,7 @@ TASK BODY Medico IS
     OR ACCEPT peticionEnfermo (something) do
       -- hago algo
         end peticionEnfermo;
-    OR 
+    OR
   end SELECT
 
 end Medico

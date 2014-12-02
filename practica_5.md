@@ -2,7 +2,7 @@ Programación Concurrente – 2014 - Práctica 5
 ============================================
 
 
-Ejercicio 1 ADA
+ADA
 ---
 
 ### CONSIDERACIONES PARA RESOLVER LOS EJERCICIOS:
@@ -11,7 +11,7 @@ Ejercicio 1 ADA
 
 2. Declaración de tareas
 
-    1. Especificación de tareas sin ENTRY’s (nadie le puede hacer llamados).
+    1. Especificación de tareas sin ENTRY’s (nadie les puede hacer llamados).
 
     ```ada
     TASK Nombre;
@@ -41,7 +41,7 @@ Ejercicio 1 ADA
 
 3. Sincronización y comunicación entre tareas
 
-    1. Entry call para enviar información (o avisar algú n evento).
+    1. Entry call para enviar información (o avisar algún evento).
 
         ```ada
         NombreTarea.NombreEntry (parametros);
