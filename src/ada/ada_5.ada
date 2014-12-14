@@ -27,7 +27,7 @@ TASK BODY Medico IS
   var nota
 
   SELECT
-    WHEN(peticionEnfermo's count = 0) -> ACCEPT peticionEnfermera (something) do
+    WHEN(peticionEnfermo's count = 0) => ACCEPT peticionEnfermera(something) do
       -- hago algo
         end peticionEnfermera;
     OR ACCEPT peticionEnfermo (something) do

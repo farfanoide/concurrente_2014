@@ -1,4 +1,4 @@
-Programación Concurrente – 2014 - Práctica 5
+		CONCURRENCIAProgramación Concurrente – 2014 - Práctica 5
 ============================================
 
 
@@ -196,6 +196,7 @@ total).
 
 Ejercicio 3
 -----------
+
 M personas concurren a un gimnasio para hacer su rutina diaria. Cada persona
 cuando llega al gimnasio da su nombre, su bolso con ropa para bañarse y su
 portafolio o cartera personal (dependiendo de si es hombre o mujer) a la
@@ -210,25 +211,25 @@ rutina y le indica cuál tipo de máquina debe utilizar. La persona busca una
 máquina del tipo (la que hace más tiempo que no se utiliza) y si en ese momento
 la máquina no está disponible, le pide a su profesor que le diga otro tipo de
 máquina a utilizar. La persona se retira del gimnasio cuando termina su rutina
-o cuando 5 máquinas no estuvieron disponibles, en cualquiera de los casos debe retirar sus
-pertenencias personales.
+o cuando 5 máquinas no estuvieron disponibles, en cualquiera de los casos debe
+retirar sus pertenencias personales.
 
 #### Notas:
 
-    * La persona no conoce el número de su locker particular.
+  * La persona no conoce el número de su locker particular.
 
-    * Existen N máquinas de cada tipo. La persona no elige con que profesor hace
-      su rutina, una vez que consigue uno trabaja con ese hasta que se retira del
-      gimnasio y tampoco elige cuál máquina de cada tipo utiliza.
+  * Existen N máquinas de cada tipo. La persona no elige con que profesor hace
+    su rutina, una vez que consigue uno trabaja con ese hasta que se retira del
+    gimnasio y tampoco elige cuál máquina de cada tipo utiliza.
 
-    * Cada persona utiliza cada máquina durante 5 minutos.
+  * Cada persona utiliza cada máquina durante 5 minutos.
 
-    * Un profesor puede atender a 0, 1 ó más personas.
+  * Un profesor puede atender a 0, 1 ó más personas.
 
-    * Suponga que cada máquina dispone de una función que le retorna cuanto
-      tiempo hace que está disponible.
+  * Suponga que cada máquina dispone de una función que le retorna cuanto
+    tiempo hace que está disponible.
 
-    * Maximice la concurrencia para TODAS las tareas.
+  * Maximice la concurrencia para TODAS las tareas.
 
 Ejercicio 4
 -----------
@@ -295,6 +296,7 @@ llegan para ser atendidos. Cuando atiende un pedido, recibe la solicitud y la
 procesa durante un cierto tiempo. Cuando está libre aprovecha a procesar las
 notas dejadas por las enfermeras.
 
-#### Nota:
-
+Nota:
     * MAXIMICE LA CONCURRENCIA.
+
+

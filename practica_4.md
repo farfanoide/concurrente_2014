@@ -40,9 +40,9 @@ CONSIDERACIONES PARA RESOLVER LOS EJERCICIOS:
 
     ```
     If (cond 1) -> Acciones 1
-    ◻︎ (cond 2) -> Acciones 2
+    [] (cond 2) -> Acciones 2
     ...
-    ◻︎ (cond N) -> Acciones N
+    [] (cond N) -> Acciones N
     End if
     ```
 
@@ -91,9 +91,9 @@ Se puede usar el if/do guardado
 
 ```
 If (Guarda 1) -> Acciones 1
-◻︎ (Guarda 2) -> Acciones 2
+[] (Guarda 2) -> Acciones 2
 ...
-◻︎ (Guarda 3) -> Acciones 3
+[] (Guarda 3) -> Acciones 3
 End if
 ```
 
