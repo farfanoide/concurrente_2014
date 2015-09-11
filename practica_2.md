@@ -77,7 +77,7 @@ que intentan consumir los productos producidos por el productor. Cada vez que
 un producto es consumido por los C consumidores el productor puede depositar un
 nuevo producto.
 
-> Solucion: [Productor-Consumidores](src/semaforos/productor-consumidor)
+> Solucion: [Productor-Consumidores](src/semaforos/productor_consumidor)
 
 Ejercicio 4
 -----------
